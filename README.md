@@ -1,4 +1,4 @@
-# my_first_flutter_app
+# Flutter Playground
 
 A new Flutter project.
 
