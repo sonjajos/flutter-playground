@@ -63,6 +63,7 @@ class HomeScreen extends StatelessWidget {
                   elementsNum: 4,
                 ),
               ),
+              const SizedBox(height: 40),
             ],
           ),
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {

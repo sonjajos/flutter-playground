@@ -1,53 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_flutter_app/utilities/routes.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:my_first_flutter_app/screens/home.dart';
+import 'package:my_first_flutter_app/screens/profile.dart';
+import 'package:my_first_flutter_app/screens/recipies.dart';
+import 'package:my_first_flutter_app/store/navigation.dart';
 
-class FooterMenuItem {
-  IconData icon;
-  String routeName;
-
-  FooterMenuItem(this.icon, this.routeName);
-}
-
-List<FooterMenuItem> footerItems = [
-  FooterMenuItem(Icons.search, homeScreen),
-  FooterMenuItem(Icons.home, homeScreen),
-  FooterMenuItem(Icons.person, homeScreen),
+List<Widget> screens = [
+  const HomeScreen(),
+  const ProfileScreen(),
+  const RecipiesScreen(),
 ];
 
-class Footer extends StatelessWidget {
+class Footer extends StatefulWidget {
   const Footer({super.key});
 
   @override
+  State createState() {
+    return FooterState();
+  }
+}
+
+class FooterState extends State<Footer> {
+  int currentIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      selectedItemColor: Colors.blue,
-      onTap: (value) {
-        switch (value) {
-          case 0:
-            {
-              if (ModalRoute.of(context)?.settings.name != homeScreen) {
-                Navigator.pushNamed(context, homeScreen);
-              }
-            }
-            break;
-          default:
-            {
-              if (ModalRoute.of(context)?.settings.name != profileScreen) {
-                Navigator.pushNamed(context, profileScreen);
-              }
-            }
-        }
-      },
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Scrolls',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Forms',
-        ),
-      ],
+    return Observer(
+      builder: (_) => BottomNavigationBar(
+        selectedItemColor: Colors.blue,
+        currentIndex: customNav.currentIndex,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Scrolls',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Forms',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt),
+            label: 'Recipies',
+          ),
+        ],
+        onTap: (int index) {
+          customNav.selectTab(index);
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) => screens[index],
+              transitionDuration: Duration.zero,
+            ),
+          );
+        },
+      ),
     );
   }
 }

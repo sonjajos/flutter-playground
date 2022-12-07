@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_flutter_app/screens/home.dart';
 import 'package:my_first_flutter_app/screens/profile.dart';
+import 'package:my_first_flutter_app/screens/recipies.dart';
 
 import '../utilities/routes.dart';
 
 class AuthenticatedNavigator extends StatelessWidget {
-  const AuthenticatedNavigator({super.key});
+  AuthenticatedNavigator({super.key});
+
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "My First Flutter App",
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: Colors.black,
@@ -34,10 +38,11 @@ class AuthenticatedNavigator extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/',
+      initialRoute: homeScreen,
       routes: {
         homeScreen: (context) => const HomeScreen(),
         profileScreen: (context) => const ProfileScreen(),
+        recipiesScreen: (context) => const RecipiesScreen(),
       },
     );
   }

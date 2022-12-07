@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/footer.dart';
 import '../widgets/menu.dart';
+import '../widgets/profile_form.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -16,13 +17,8 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: Container(
         color: Colors.black,
-        child: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Go back to Home'),
-          ),
+        child: const Center(
+          child: ProfileForm(),
         ),
       ),
     );
